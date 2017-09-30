@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Member Dashboard</title>
+</head>
+<body>
+	Logged in as {{ member.username }} |
+	<a href="{% url 'logout' %}">Logout</a>
+
+	<h1>Welcome, {{ member.firstname }}!</h1>
+
+<a href="{% url 'add' %}">Add travel plans</a>
+
+<h3>Your trip schedule:</h3>
+
+
+<table>
+	<thead>
+		<tr>
+			<th>Destination</th>
+			<th>Departure Date</th>
+			<th>Return Date</th>
+			<th>Plan</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for trip in my_trips %}
+		<tr>
+			<td>
+				<form action="{% url 'showtrip' %}" method="POST">
+				{% csrf_token %}
+				<input type="hidden" name="id" value="{{ trip.id }}">
+				<button type="submit">{{ trip.destination }}</button>
+				</form>
+			</td>
+			<td> {{ trip.departure_date.date }}</td>
+			<td> {{ trip.return_date.date }}</td>
+			<td> {{ trip.description }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+
+</table>
+
+<h2>Other People's Travel Plans</h2>
+
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Destination</th>
+			<th>Departure Date</th>
+			<th>Return Date</th>
+			<th>Do you want to join?</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for trip in other_trips %}
+		<tr>
+			<td>{{ trip.planned_by.firstname }}</td>
+			<td><form action="{% url 'showtrip' %}" method="POST">
+				{% csrf_token %}
+				<input type="hidden" name="id" value="{{ trip.id }}">
+				<button type="submit">{{ trip.destination }}</button>
+				</form>
+			</td>
+			<td>{{ trip.departure_date.date }}</td>
+			<td>{{ trip.return_date.date }}</td>
+			<td>
+				<form action="{% url 'jointrip' %}" method="POST">
+				{% csrf_token %}
+				<input type="hidden" name="id" value="{{ trip.id }}">
+				<button type="submit">Join!</button>
+				</form>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+
+</table>
+
+
+
+</body>
+</html>

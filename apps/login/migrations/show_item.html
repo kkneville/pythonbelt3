@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Show Item</title>
+</head>
+<body>
+	<a href="{% url "dashboard" %}">Home</a> |
+	Logged in as {{ member.username }} | 
+	<a href="{% url "logout" %}">Logout</a>
+
+
+	<h2>{{ item.name }}</h2>
+
+	<p>People who added this item to their wishlist:</p>
+
+	<ul>
+	{% for person in people %}
+	<li>{{ person.firstname }}</li>
+	{% endfor %}
+	</ul>
+	
+</body>
+</html>

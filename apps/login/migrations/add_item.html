@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Item</title>
+</head>
+<body>
+	<a href="{% url "dashboard" %}">Home</a> |
+	Logged in as {{ member.username }} |
+	<a href="{% url "logout" %}">Logout</a>
+
+	<h2>Add a New Item to Your Wishlist</h2>
+
+	<form action="/create" method="post">
+	{% csrf_token %}
+		<label for="name">Item:</label>
+		<input type="text" name="name" value="">
+		<input type="hidden" name="member" value="{{ member.id }}">
+		<button type="submit">Add</button>
+	</form>
+
+	{% for error in errors %}
+  <p>{{ error }}</p>
+  {% endfor %}
+
+</body>
+</html>

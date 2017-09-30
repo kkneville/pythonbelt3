@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Show Item</title>
+</head>
+<body>
+Logged in as {{ member.username }} |
+	<a href="{% url "dashboard" %}">Home</a> |
+	<a href="{% url "logout" %}">Logout</a>
+
+
+	<h2>About {{trip.planned_by.firstname}}'s trip to {{ trip.destination }}</h2>
+
+	<p>Planned by: {{ trip.planned_by.firstname }}</p>
+	<p>Description: {{ trip.description }}</p>
+	<p>Departure Date: {{ trip.departure_date }}</p>
+	<p>Return Date: {{ trip.return_date }} </p>
+
+	<h3>Other people coming on this trip:</h3>
+
+	<ul>
+	{% for person in coming %}
+	<li> {{ person.firstname }}</li>
+	{% endfor %}
+	</ul>
+
+</body>
+</html>

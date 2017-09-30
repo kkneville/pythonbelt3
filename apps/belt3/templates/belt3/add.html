@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add a Trip</title>
+</head>
+<body>
+Logged in as {{ member.username }} |
+	<a href="{% url "dashboard" %}">Home</a> |
+	<a href="{% url "logout" %}">Logout</a>
+
+<h2> Add a new trip! </h2>
+<form action="{% url 'addtrip' %}" method="POST">
+{% csrf_token %}	
+	<label for="destination">Destination</label>
+	<input type="text" name="destination">
+	<br>
+	<br>
+	<label for="description">Description</label>
+	<input type="text" name="description">
+	<br>
+	<br>
+	<label for="departure_date"></label>
+	<input type="date" name="departure_date">
+	<br>
+	<br>
+	<label for="return_date"></label>
+	<input type="date" name="return_date">
+	<br>
+	<br>
+	<button type="submit">Submit</button>
+</form>
+
+	{% for error in errors %}
+    <p>{{ error }}<p>
+    {% endfor %}
+
+
+</body>
+</html>
